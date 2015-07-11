@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="modele.Position" table="position">
+      <meta attribute="class-description">
+         This class contains the position detail. 
+      </meta>
+      <id name="id" type="java.lang.Integer" column="id">
+         <generator class="native"/>
+      </id>
+      <property name="lattitude" column="lattitude" type="double"/>
+      <property name="longitude" column="longitude" type="double"/>
+      
+      <!--  Mapping Class DernierePosition -->
+      <joined-subclass name="modele.DernierePosition" table="dernierePosition">
+	      <key column="position_id"/>
+	      <property name="time" column="time" type="timestamp"/>
+	      <!-- Mapping User user -->      
+	      <many-to-one name="user" column="user_id" class="modele.User" unique="true" not-null="true" >
+	 	  </many-to-one>
+      </joined-subclass>
+      
+      <!--  Mapping Class Marqueur -->
+      <joined-subclass name="modele.Marqueur" table="marqueur">
+	      <key column="position_id"/>
+	      <property name="description" column="description" type="string"/>
+	      <property name="fin" column="fin" type="timestamp"/>
+	      <many-to-one name="group" class="modele.Group" column="group_id" lazy="false"/>
+	      <many-to-one name="createur" class="modele.User" column="user_id" lazy="false"/>
+	       
+	      <!-- Mapping User user -->
+	     <set name="notificationMarqueur" lazy="false" inverse="true" cascade="all">
+        	 <key column="marqueur_id"/>        	 
+        	 <one-to-many class="modele.NotificationMarqueur"/>
+     	 </set>
+      </joined-subclass>
+   </class>
+</hibernate-mapping>

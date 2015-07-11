@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="modele.Notification" table="notification">
+      <meta attribute="class-description">
+         This class contains the notification detail. 
+      </meta>
+      <id name="id" type="java.lang.Integer" column="id">
+         <generator class="native"/>
+      </id>
+
+	  <!-- Mapping User user -->
+	  <many-to-one name="user" class="modele.User" column="user_id" lazy="false" />
+	  
+	  <!-- Mapping Class Invitation -->
+	  <joined-subclass name="modele.Invitation" table="invitation">
+	      <key column="notification_id"/>	      
+	      <!-- Mapping User user -->
+		  <many-to-one name="inviteur" class="modele.User" column="inviteur_id" lazy="false" />
+		  <many-to-one name="group" class="modele.Group" column="group_id" lazy="false" />		
+      </joined-subclass>
+      
+      <!-- Mapping Class Demande -->
+      <joined-subclass name="modele.Demande" table="demande">
+	      <key column="notification_id"/>	      
+	      <!-- Mapping User user -->
+		  <many-to-one name="demandeur" class="modele.User" column="demandeur_id" lazy="false" unique-key="uk1"/>
+		  <many-to-one name="group" class="modele.Group" column="group_id" lazy="false" unique-key="uk1"/>
+      </joined-subclass>
+      
+      <!-- Mapping Class NotificationMarqueur -->
+      <joined-subclass name="modele.NotificationMarqueur" table="notification_marqueur">
+	      <key column="notification_id"/>	      
+	      <!-- Mapping User user -->
+		  <many-to-one name="marqueur" class="modele.Marqueur" column="marqueur_id" lazy="false" />
+      </joined-subclass>	  
+   </class>
+</hibernate-mapping>

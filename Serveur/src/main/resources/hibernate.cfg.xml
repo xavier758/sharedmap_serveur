@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+ <session-factory>
+  <!-- Database connection settings, Connect to HSQL, IN Memory  -->
+  
+<!-- <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sharedmap</property> -->
+<property name="hibernate.connection.url">jdbc:mysql://127.12.153.130:3306/sharedmap</property>
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.connection.username">adminEkwvlcT</property>
+  <property name="hibernate.connection.password">CsEiMRrXfLcF</property>
+  <!--<property name="hibernate.connection.username">adminIi6McBY</property>
+  <property name="hibernate.connection.password">i9c6UQGVSS2w</property>-->
+  <!--  <property name="show_sql">true</property>-->
+  <!-- DB schema will be updated if needed -->
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  <!-- Disable the second-level cache  -->
+  <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+  <!-- JDBC connection pool (use the built-in) 
+  List of XML mapping files -->
+  <!-- List of XML mapping files -->
+	<mapping resource="Group.hbm.xml"/>
+	<mapping resource="User.hbm.xml"/>
+	<mapping resource="Notification.hbm.xml"/>
+	<mapping resource="Position.hbm.xml"/> 		
+  </session-factory>
+</hibernate-configuration>
